@@ -5,10 +5,15 @@ from tensorflow.keras.models import model_from_json
 import numpy as np
 import os
 import cv2
+# from pickle import dump, load
+# from sklearn.preprocessing import MinMaxScaler
+import joblib
+
+# from sklearn.externals import joblib 
 
 app  = Flask(__name__);
 
-app.config["IMAGE_UPLOADS"] = "E:\Research\Deployment\Old\static"
+app.config["IMAGE_UPLOADS"] = "E:\Research\Deployment\CNN Flask Deployment\static"
 
  
 MODEL_ARCHITECTURE = './Model/model.json'   ###
@@ -32,6 +37,11 @@ print("Model Loaded")
 loaded_model.load_weights(MODEL_WEIGHTS)
 print("Weights Loaded")
 
+# Load Data Scaling
+# scalerLoaded = joblib.load(open('E:\Research\Deployment\CNN Flask Deployment\Model\scaler.pkl', 'rb'))
+scalerLoaded = joblib.load('./Model/scaler.mod')
+print("Scaler Loaded", scalerLoaded.get_params())
+
 @app.route('/',  methods=["GET"])
 def uploadFile():
     return render_template('index.html')
@@ -47,8 +57,13 @@ def prediction():
 
             print("file", xrayImage.filename)
             xrayImage.save(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
-            cus = [[0.806452, 0]]
-            cusAttr = np.asarray(cus)
+            age = request.form['age']
+            gender = request.form['gender']
+            print("age", age, "gender", gender)
+            scaledAge = scalerLoaded.transform([[int(age)]])
+            attributes = [[scaledAge[0][0], int(gender)]]
+            print("attributes", attributes)
+            attributesArr = np.asarray(attributes)
             # source_dir = 'E:\\Research\\Deployment\\Old\\static\\186466753_394710685590769_7094925174955611211_n.png' 
 
             inputImages = []
@@ -59,12 +74,13 @@ def prediction():
             inputImages.append(image)
             inputImages =  np.array(inputImages)
             inputImages = inputImages / 255.0
+            # To delete file
+            # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
 
-
-            preds = loaded_model.predict([ cusAttr, inputImages])
+            preds = loaded_model.predict([ attributesArr, inputImages])
 
             a=np.argmax(preds[0])
-            print("predictions", "selected", a , "value ==========> ", disease_classes[a] , "/n" , "preds", preds)
+            print("predictions", "selected", a , "value ==========> ", disease_classes[a]  , "preds", preds)
     return render_template('prediction.html', prediction=disease_classes[a], fileName=xrayImage.filename);
 
 

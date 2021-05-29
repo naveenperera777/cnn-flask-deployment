@@ -8,7 +8,14 @@
 </head>
 <body>
     <form action="prediction" method="post" enctype="multipart/form-data">
-        <input type="file" name="xrayImage" id="imageUpload" accept=".png, .jpg, .jpeg">
+        <input type="file" name="xrayImage" id="imageUpload" accept=".png, .jpg, .jpeg"> <br>
+        <label>Enter Patient Age</label>
+        <input type="text" placeholder="Type Age" name="age"/> <br>
+        <label>Enter Patient Gender</label> <br>
+        <input type="radio" id="male" name="gender" value="0">
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="1">
+        <label for="female">Female</label><br>
         <input type="submit" name="btn" />
     </form> 
 </body>
