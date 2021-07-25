@@ -1,0 +1,155 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico" />
+
+    <title>About</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='abc.jpg') }}"
+    />
+    <!-- Custom styles for this template -->
+  </head>
+
+  <body>
+    <nav
+      class="navbar navbar-expand-sm navbar-dark"
+      style="background-color: #0c0509"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('uploadFile') }}"
+            ><h5>Home</h5></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('about') }}"><h5>About</h5></a>
+        </li>
+      </ul>
+    </nav>
+    <div role="div">
+      <div class="jumbotron">
+        <div class="container">
+          <h2>
+            An Optimized Convolutional Neural Network Approach for detecting
+            Lung Diseases Based on Chest X-Rays
+          </h2>
+          <p>
+            Chest diseases are common throughout the globe. These include
+            pneumonia, asthma, fibrosis, lung cancer etc: Timely diagnosis of
+            lung diseases is essential for treatment and prevention of further
+            complications that could arise. Many researches have been carried
+            out for the individual diagnosis of a particular chest disease. Only
+            a few researches exist with regard to the identification of multiple
+            chest diseases. According to the domain experts, knowing the
+            patient’s medical history and medical related patient data can
+            significantly impact the differential diagnosis of chest diseases.
+            This research is an attempt to use patient medical data such as
+            patient age and patient gender etc: in addition to the patient chest
+            x-ray image data, in order to develop a high accuracy model, in
+            contrast to the conventional CNN models which only use image data.
+          </p>
+          <p>
+            <a class="btn btn-primary btn-lg" href="#" role="button"
+              >Learn more &raquo;</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="card" style="width: 18rem">
+            <img
+              class="card-img-top"
+              src="../static/people/naveen.jpeg"
+              alt="Card image cap"
+              height="300"
+              width="300"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Naveen Perera</h5>
+              <p class="card-text">
+                Post-Graduate Student, Informatics Institute of Technology (IIT)
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <!-- <div class="col-md-4"> -->
+          <div class="card" style="width: 18rem">
+            <img
+              class="card-img-top"
+              src="../static/people/achala.jpg"
+              alt="Card image cap"
+              height="300"
+              width="300"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Achala Chathuranga Aponsu</h5>
+              <p class="card-text">
+                Senior Lecturer, Informatics Institute of Technology (IIT)
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+          <!-- </div> -->
+          <!-- <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>
+              Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
+              egestas eget quam. Vestibulum id ligula porta felis euismod
+              semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+              condimentum nibh, ut fermentum massa justo sit amet risus.
+            </p>
+            <p>
+              <a class="btn btn-secondary" href="#" role="button"
+                >View details &raquo;</a
+              >
+            </p>
+          </div> -->
+        </div>
+
+        <hr />
+      </div>
+      <!-- /container -->
+    </div>
+
+    <!-- <footer class="container">
+      <p>&copy; Company 2017-2018</p>
+    </footer> -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.jQuery ||
+        document.write(
+          '<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>'
+        );
+    </script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

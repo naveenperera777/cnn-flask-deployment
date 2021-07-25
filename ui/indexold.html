@@ -1,0 +1,88 @@
+<html>
+
+    <head>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Play&display=swap" rel="stylesheet">
+
+        <title>X-Ray Status Detector (A.I. solution)</title>
+
+        <meta name="theme-color" content="#ffffff">
+    </head>
+
+<body>
+
+    <div class="very_main">
+
+        <header>
+            <div class="top_frame">
+                <h1>A.I. based X-Ray analysis for human lungs</h1>
+            </div>
+        </header>
+
+        {% extends "base.html" %} {% block content %}
+
+        <h2>Implemented by Keras and Tensorflow</h2>
+
+        <p class="description">
+            Choose your X-Ray visual file and click Predict to get your diagnosis.
+        </p>
+
+        <div>
+            {% if uploaded %}
+                <p>Hello</p>
+            {% endif %}
+            <form id="uploadFile"  method="POST" enctype="multipart/form-data" action="prediction">
+                <label for="imageUpload" class="upload-label">
+                    Select your X-Ray Visual
+                </label>
+                <input type="file" name="xrayImage" id="imageUpload" accept=".png, .jpg, .jpeg">
+                <div class="image-section" style="display:none;">
+                    <div class="img-preview">
+                        <div id="imagePreview">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" class="upload-label" name="btn" id="btn-predict" value="Predict"/>
+                    </div>
+                </div>
+            </form>
+            <!-- <form action="prediction" method="post" enctype="multipart/form-data">
+                <input type="file" name="xrayImage" id="imageUpload" accept=".png, .jpg, .jpeg">
+                <input type="submit" name="btn" />
+            </form> -->
+
+
+            <div class="loader" style="display:none;"></div>
+
+            <h3 id="result">
+                <span> </span>
+            </h3>
+
+        </div>
+
+        <p class="final_word">
+            Developed by Naveen Perera.</br>
+            </br>
+        </p>
+        <div id="image">
+        </div>
+        </div>
+                <!-- <img src= "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80" /> -->
+
+    </div>
+
+    {% endblock %}
+
+</body>
+<script>
+    // var  pre = {{ prediction }}
+    // $("#image").css(
+    //       "background-image",
+    //       "url(" + e.target.result + ")"
+    //     );
+    $("#image").css(
+          "background-image",
+          "url(`https://images.unsplash.com/photo-1497250681960-ef046c08a56e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80`)"
+        );
+</script>
+</html>
