@@ -5,7 +5,7 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
-#import cv2
+import cv2
 # from pickle import dump, load
 # from sklearn.preprocessing import MinMaxScaler
 import joblib
@@ -78,20 +78,17 @@ def prediction():
             inputImages = []
             imagePath = os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename) 
             print("imagePath", imagePath)
-
-            # image = cv2.imread(imagePath)
-            # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            # print("graybefore", gray.shape, image.shape)
-            # image = cv2.resize(gray, (128, 128))
-            # inputImages.append(image)            
-            # print("imageshape", image.shape, "gray", gray.shape)
-            # inputImages =  np.array(inputImages)
-
-            img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
-            img = image.img_to_array(img)
-            inputImages.append(img)
-            inputImages = np.array(inputImages)
-
+            image = cv2.imread(imagePath)
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            print("graybefore", gray.shape, image.shape)
+            image = cv2.resize(gray, (128, 128))
+            inputImages.append(image)            
+            print("imageshape", image.shape, "gray", gray.shape)
+            inputImages =  np.array(inputImages)
+            # img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
+            # img = image.img_to_array(img)
+            # inputImages.append(img)
+            # inputImages = np.array(inputImages)
             inputImages = inputImages / 255.0
             # To delete file
             # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
