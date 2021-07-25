@@ -11,7 +11,7 @@ from flask import Flask, render_template, redirect, request, send_from_directory
 
 # from sklearn.externals import joblib 
 
-app  = Flask(__name__ , template_folder='ui');
+app  = Flask(__name__ , template_folder='templates');
 
 app.config["IMAGE_UPLOADS"] = "./static"
 
