@@ -5,9 +5,10 @@ from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
-import cv2
-
-# import joblib
+#import cv2
+# from pickle import dump, load
+# from sklearn.preprocessing import MinMaxScaler
+import joblib
 
 # from sklearn.externals import joblib 
 
@@ -20,11 +21,11 @@ MODEL_ARCHITECTURE = './Model/model.json'   ###
 MODEL_WEIGHTS = './Model/weights.h5'  ###
 
 #Load Model
-# json_file = open(MODEL_ARCHITECTURE)
-# loaded_model_json = json_file.read()
-# json_file.close()
-# loaded_model = model_from_json(loaded_model_json)
-# loaded_model.compile(loss='sparse_categorical_crossentropy', metrics=['accuracy'], optimizer='rmsprop')
+json_file = open(MODEL_ARCHITECTURE)
+loaded_model_json = json_file.read()
+json_file.close()
+loaded_model = model_from_json(loaded_model_json)
+loaded_model.compile(loss='sparse_categorical_crossentropy', metrics=['accuracy'], optimizer='rmsprop')
 
 disease_classes = {0:'Atelectasis',1:'Cardiomegaly', 2 :'Consolidation', 3: 'Edema', 4: 'Effusion',  5: 'Emphysema', 6: 'Fibrosis', 7: 'Hernia', 8: 'Infiltration', 9: 'Mass', 10: 'No Finding', 11 : 'Nodule', 12: 'Pleural_Thickening',13: 'Pneumonia', 14: 'Pneumothorax'}
 
@@ -34,13 +35,13 @@ disease_classes = {0:'Atelectasis',1:'Cardiomegaly', 2 :'Consolidation', 3: 'Ede
 print("Model Loaded")
 
 # Get weights into the model
-# loaded_model.load_weights(MODEL_WEIGHTS)
+loaded_model.load_weights(MODEL_WEIGHTS)
 print("Weights Loaded")
 
 # Load Data Scaling
 # scalerLoaded = joblib.load(open('E:\Research\Deployment\CNN Flask Deployment\Model\scaler.pkl', 'rb'))
-# scalerLoaded = joblib.load('./Model/scaler.mod')
-# print("Scaler Loaded", scalerLoaded.get_params())
+scalerLoaded = joblib.load('./Model/scaler.mod')
+print("Scaler Loaded", scalerLoaded.get_params())
 
 # @app.route('/favicon.ico')
 # def favicon():
@@ -77,17 +78,20 @@ def prediction():
             inputImages = []
             imagePath = os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename) 
             print("imagePath", imagePath)
-            image = cv2.imread(imagePath)
-            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            print("graybefore", gray.shape, image.shape)
-            image = cv2.resize(gray, (128, 128))
-            inputImages.append(image)            
-            print("imageshape", image.shape, "gray", gray.shape)
-            inputImages =  np.array(inputImages)
-            # img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
-            # img = image.img_to_array(img)
-            # inputImages.append(img)
-            # inputImages = np.array(inputImages)
+
+            # image = cv2.imread(imagePath)
+            # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # print("graybefore", gray.shape, image.shape)
+            # image = cv2.resize(gray, (128, 128))
+            # inputImages.append(image)            
+            # print("imageshape", image.shape, "gray", gray.shape)
+            # inputImages =  np.array(inputImages)
+
+            img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
+            img = image.img_to_array(img)
+            inputImages.append(img)
+            inputImages = np.array(inputImages)
+
             inputImages = inputImages / 255.0
             # To delete file
             # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
@@ -107,5 +111,5 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run();
+    app.run(debug=True);
 
