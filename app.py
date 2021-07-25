@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request;
+from flask import Flask, render_template, redirect, request, send_from_directory;
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import model_from_json
@@ -14,7 +14,7 @@ import joblib
 
 app  = Flask(__name__);
 
-app.config["IMAGE_UPLOADS"] = "E:\Research\Deployment\CNN Flask Deployment\static"
+app.config["IMAGE_UPLOADS"] = "./static"
 
  
 MODEL_ARCHITECTURE = './Model/model.json'   ###
@@ -43,6 +43,10 @@ print("Weights Loaded")
 scalerLoaded = joblib.load('./Model/scaler.mod')
 print("Scaler Loaded", scalerLoaded.get_params())
 
+# @app.route('/favicon.ico')
+# def favicon():
+#     return send_from_directory(os.path.join(app.config["IMAGE_UPLOADS"], 'abc.jpg'),
+#                           'favicon.ico')
 @app.route('/',  methods=["GET", "POST"])
 def uploadFile():
     return render_template('index.html')
