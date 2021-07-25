@@ -49,7 +49,7 @@ print("Scaler Loaded", scalerLoaded.get_params())
 #                           'favicon.ico')
 @app.route('/',  methods=["GET", "POST"])
 def uploadFile():
-    return render_template('index.html')
+    return "test"
 
 @app.route('/about',  methods=["GET"])
 def about():
@@ -108,5 +108,5 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run(debug=True);
+    app.run();
 
