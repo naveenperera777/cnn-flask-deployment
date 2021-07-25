@@ -6,6 +6,5 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 Werkzeug==0.15.6
-tensorflow-cpu==2.3.0
-tensorflow_hub==0.10.0
+tensorflow-cpu==2.5.0
 numpy==1.18.0
