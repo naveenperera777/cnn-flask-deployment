@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request;
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import model_from_json
+from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
 import cv2
@@ -42,9 +43,13 @@ print("Weights Loaded")
 scalerLoaded = joblib.load('./Model/scaler.mod')
 print("Scaler Loaded", scalerLoaded.get_params())
 
-@app.route('/',  methods=["GET"])
+@app.route('/',  methods=["GET", "POST"])
 def uploadFile():
     return render_template('index.html')
+
+@app.route('/about',  methods=["GET"])
+def about():
+    return render_template('about.html')
 
 @app.route('/prediction', methods=["POST", "GET"])
 def prediction():
@@ -54,7 +59,7 @@ def prediction():
         if xrayImage:            
             # xrayImage.save('predict.jpg')
             print("inside")
-
+            filename = xrayImage.filename.split('.')
             print("file", xrayImage.filename)
             xrayImage.save(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
             age = request.form['age']
@@ -70,9 +75,16 @@ def prediction():
             imagePath = os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename) 
             print("imagePath", imagePath)
             image = cv2.imread(imagePath)
-            image = cv2.resize(image, (128, 128))
-            inputImages.append(image)
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            print("graybefore", gray.shape, image.shape)
+            image = cv2.resize(gray, (128, 128))
+            inputImages.append(image)            
+            print("imageshape", image.shape, "gray", gray.shape)
             inputImages =  np.array(inputImages)
+            # img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
+            # img = image.img_to_array(img)
+            # inputImages.append(img)
+            # inputImages = np.array(inputImages)
             inputImages = inputImages / 255.0
             # To delete file
             # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
@@ -80,8 +92,15 @@ def prediction():
             preds = loaded_model.predict([ attributesArr, inputImages])
 
             a=np.argmax(preds[0])
-            print("predictions", "selected", a , "value ==========> ", disease_classes[a]  , "preds", preds)
-    return render_template('prediction.html', prediction=disease_classes[a], fileName=xrayImage.filename);
+            print("predictions", "selected", a , "value ==========> ", disease_classes[a]  , "preds", preds, "pred", preds[0])
+            predictionProbability = round(preds[0][a] *100 , 2)
+    return render_template(
+        'prediction.html', 
+        prediction=disease_classes[a],
+        fileName=xrayImage.filename,
+        predictionProbability=predictionProbability,
+        probabilities=preds[0]
+        );
 
 
 if __name__ == "__main__":

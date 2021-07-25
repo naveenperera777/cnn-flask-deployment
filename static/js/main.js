@@ -1,56 +1,39 @@
-// $(document).ready(function () {
-//   // Init
-//   // $(".image-section").hide();
-//   // $(".loader").hide();
-//   // $("#result").hide();
+$(document).ready(function () {
+  // Init
+  const submit = document.getElementById("homebtn");
+  const age = document.getElementById("age");
+  const xrayImage = document.getElementById("xrayImage");
 
-//   // Upload Preview
-//   function readURL(input) {
-//     if (input.files && input.files[0]) {
-//       var reader = new FileReader();
-//       reader.onload = function (e) {
-//         $("#imagePreview").css(
-//           "background-image",
-//           "url(" + e.target.result + ")"
-//         );
-//         // $("#imagePreview").hide();
-//         // $("#imagePreview").fadeIn(650);
-//       };
-//       reader.readAsDataURL(input.files[0]);
-//     }
-//   }
-//   // $("#imageUpload").change(function () {
-//   //   $(".image-section").show();
-//   //   $("#btn-predict").show();
-//   //   $("#result").text("");
-//   //   $("#result").hide();
-//   //   readURL(this);
-//   // });
+  console.log("age", age.value, xrayImage.value);
 
-//   // Predict
-//   $("#btn-predict").click(function () {
-//     var form_data = new FormData($("#upload-file")[0]);
+  submit.disabled = true;
+  function handleClick() {
+    console.log("handleClick");
+  }
 
-//     // Show loading animation
-//     // $(this).hide();
-//     $(".loader").show();
+  function handleChange(e) {
+    console.log("handleChange", e.target.value, xrayImage.value);
+    if (
+      e.target.value > 0 &&
+      e.target.value < 101 &&
+      e.target.value.length != 0
+    ) {
+      submit.disabled = false;
+    } else {
+      submit.disabled = true;
+    }
+  }
 
-//     // Make prediction by calling api /predict
-//     // $.ajax({
-//     //   type: "POST",
-//     //   url: "/predict",
-//     //   data: form_data,
-//     //   contentType: false,
-//     //   cache: false,
-//     //   processData: false,
-//     //   async: true,
-//     //   success: function (data) {
-//     //     // Get and display the result
-//     //     $(".loader").hide();
-//     //     $("#result").fadeIn(600);
-//     //     $("#result").text(" Diagnosis of lungs status:  " + data);
-//     //     console.log("Success!");
-//     //   },
-//     // });
-//   });
-// });
+  function uploadEvent(e) {
+    console.log("upload", e.target.value.length);
+    if (e.target.value.length == 0) {
+      submit.disabled = true;
+    } else if (age.value > 0 && age.value < 101) {
+      submit.disabled = false;
+    }
+  }
+
+  submit.addEventListener("click", handleClick);
+  age.addEventListener("input", handleChange);
+  xrayImage.addEventListener("change", uploadEvent);
+});
