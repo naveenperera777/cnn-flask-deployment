@@ -48,7 +48,7 @@ print("Weights Loaded")
 #                           'favicon.ico')
 @app.route('/',  methods=["GET", "POST"])
 def uploadFile():
-    return render_template('test.html')
+    return render_template('index.html')
 
 @app.route('/about',  methods=["GET"])
 def about():
