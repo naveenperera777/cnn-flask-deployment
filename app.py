@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, send_from_directory;
-import tensorflow as tf
-from tensorflow import keras
+# import tensorflow as tf
+# from tensorflow import keras
 from tensorflow.keras.models import model_from_json
 from tensorflow.keras.preprocessing import image
 import numpy as np
@@ -108,5 +108,5 @@ def prediction():
 
 
 if __name__ == "__main__":
-    app.run(debug=True);
+    app.run(host='0.0.0.0', port=8080);
 
