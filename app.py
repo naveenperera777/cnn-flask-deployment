@@ -21,11 +21,11 @@ MODEL_ARCHITECTURE = './Model/md4.json'   ###
 MODEL_WEIGHTS = './Model/modelnew_weights.h5'  ###
 
 #Load Model
-json_file = open(MODEL_ARCHITECTURE)
-loaded_model_json = json_file.read()
-json_file.close()
-loaded_model = model_from_json(loaded_model_json)
-loaded_model.compile(loss='sparse_categorical_crossentropy', metrics=['accuracy'], optimizer='rmsprop')
+# json_file = open(MODEL_ARCHITECTURE)
+# loaded_model_json = json_file.read()
+# json_file.close()
+# loaded_model = model_from_json(loaded_model_json)
+# loaded_model.compile(loss='sparse_categorical_crossentropy', metrics=['accuracy'], optimizer='rmsprop')
 
 disease_classes = {0:'Atelectasis',1:'Cardiomegaly', 2 :'Consolidation', 3: 'Edema', 4: 'Effusion',  5: 'Emphysema', 6: 'Fibrosis', 7: 'Hernia', 8: 'Infiltration', 9: 'Mass', 10: 'No Finding', 11 : 'Nodule', 12: 'Pleural_Thickening',13: 'Pneumonia', 14: 'Pneumothorax'}
 
@@ -100,6 +100,12 @@ def prediction():
             print("last", inputImages.shape)
             # To delete file
             # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
+
+            json_file = open(MODEL_ARCHITECTURE)
+            loaded_model_json = json_file.read()
+            json_file.close()
+            loaded_model = model_from_json(loaded_model_json)
+            loaded_model.compile(loss='sparse_categorical_crossentropy', metrics=['accuracy'], optimizer='rmsprop')
 
             preds = loaded_model.predict([ attributesArr, inputImages])
 
