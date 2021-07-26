@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, request, send_from_directory;
 # import tensorflow as tf
 # from tensorflow import keras
-from tensorflow.keras.models import model_from_json
-from tensorflow.keras.preprocessing import image
+from keras.models import model_from_json
+#from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
 import cv2
