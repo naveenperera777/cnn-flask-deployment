@@ -76,21 +76,28 @@ def prediction():
             attributesArr = np.asarray(attributes)
             # source_dir = 'E:\\Research\\Deployment\\Old\\static\\186466753_394710685590769_7094925174955611211_n.png' 
 
-            inputImages = []
+            # inputImages = []
             imagePath = os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename) 
-            print("imagePath", imagePath)
-            image = cv2.imread(imagePath)
-            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            print("graybefore", gray.shape, image.shape)
-            image = cv2.resize(gray, (128, 128))
-            inputImages.append(image)            
-            print("imageshape", image.shape, "gray", gray.shape)
-            inputImages =  np.array(inputImages)
+            # print("imagePath", imagePath)
+            # image = cv2.imread(imagePath)
+            # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # print("graybefore", gray.shape, image.shape)
+            # image = cv2.resize(gray, (128, 128))
+            # inputImages.append(image)            
+            # print("imageshape", image.shape, "gray", gray.shape)
+            # inputImages =  np.array(inputImages)
+
+            inputImages = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
+            inputImages = cv2.resize(inputImages, (128,128))
+            inputImages = inputImages[np.newaxis,:,:,np.newaxis]
+
+
             # img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
             # img = image.img_to_array(img)
             # inputImages.append(img)
             # inputImages = np.array(inputImages)
             inputImages = inputImages / 255.0
+            print("last", inputImages.shape)
             # To delete file
             # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
 
