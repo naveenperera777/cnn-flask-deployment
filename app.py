@@ -17,8 +17,8 @@ app  = Flask(__name__ , template_folder='ui');
 app.config["IMAGE_UPLOADS"] = "./static"
 
  
-MODEL_ARCHITECTURE = './Model/model.json'   ###
-MODEL_WEIGHTS = './Model/weights.h5'  ###
+MODEL_ARCHITECTURE = './Model/md4.json'   ###
+MODEL_WEIGHTS = './Model/modelnew_weights.h5'  ###
 
 #Load Model
 json_file = open(MODEL_ARCHITECTURE)
@@ -35,12 +35,13 @@ disease_classes = {0:'Atelectasis',1:'Cardiomegaly', 2 :'Consolidation', 3: 'Ede
 print("Model Loaded")
 
 # Get weights into the model
-loaded_model.load_weights(MODEL_WEIGHTS)
+#loaded_model.load_weights(MODEL_WEIGHTS)
 print("Weights Loaded")
 
 # Load Data Scaling
 # scalerLoaded = joblib.load(open('E:\Research\Deployment\CNN Flask Deployment\Model\scaler.pkl', 'rb'))
-scalerLoaded = joblib.load('./Model/scaler.mod')
+scalerLoaded = joblib.load('./Model/sclaer1.mod')
+scalerLoaded.clip = False  #CHECK
 print("Scaler Loaded", scalerLoaded.get_params())
 
 # @app.route('/favicon.ico')
