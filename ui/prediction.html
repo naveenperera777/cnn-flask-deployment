@@ -1,49 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>
-      Welcome to the x-ray Prediction {{prediction}} {{predictionProbability}}
-    </h1>
-
-    <img src="{{url_for('static', filename=fileName)}}" />
-
-    {% for segment in probability %}
-    <tr>
-      <td>{{segment}}</td>
-    </tr>
-    {% endfor %}
-  </body>
-</html> -->
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <form action="prediction" method="post" enctype="multipart/form-data">
-        <input type="file" name="xrayImage" id="imageUpload" accept=".png, .jpg, .jpeg"> <br>
-        <label>Enter Patient Age</label>
-        <input type="text" placeholder="Type Age" name="age"/> <br>
-        <label>Enter Patient Gender</label> <br>
-        <input type="radio" id="male" name="gender" value="0">
-        <label for="male">Male</label><br>
-        <input type="radio" id="female" name="gender" value="1">
-        <label for="female">Female</label><br>
-        <input type="submit" name="btn" />
-    </form> 
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,10 +17,6 @@
     <script src="{{ url_for('static', filename='vendor/select2/select2.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/datepicker/moment.min.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/datepicker/moment.min.js') }}"></script>
-
-    <!-- <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script> -->
 
     <!-- Main JS-->
     <script src="js/global.js"></script>
@@ -128,13 +78,6 @@
                 {{prediction}}!
               </h2>
               <img src="{{url_for('static', filename=fileName)}}" />
-              <!-- <img src="{{url_for('static', filename=fileName)}}" width="90%" /> -->
-              <!-- <h2 class="title">I'm 90% Confident that this is Pneunomia!</h2>
-              <h2 class="title">I'm 90% Confident that this is Pneunomia!</h2>
-              <h2 class="title">I'm 90% Confident that this is Pneunomia!</h2>
-              <h2 class="title">I'm 90% Confident that this is Pneunomia!</h2>
-              <h2 class="title">I'm 90% Confident that this is Pneunomia!</h2>
-              <h2 class="title">I'm 90% Confident that this is Pneunomia!</h2> -->
               <button class="btn btn--pill btn--green" type="submit">
                 Let's check another one
               </button>

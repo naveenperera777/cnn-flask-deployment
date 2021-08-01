@@ -1,16 +1,10 @@
 from flask import Flask, render_template, redirect, request, send_from_directory;
-# import tensorflow as tf
-# from tensorflow import keras
 from tensorflow.keras.models import model_from_json
-#from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
 import cv2
-# from pickle import dump, load
-# from sklearn.preprocessing import MinMaxScaler
 import joblib
 
-# from sklearn.externals import joblib 
 
 app  = Flask(__name__ , template_folder='ui');
 
@@ -20,34 +14,17 @@ app.config["IMAGE_UPLOADS"] = "./static"
 MODEL_ARCHITECTURE = './Model/md4.json'   ###
 MODEL_WEIGHTS = './Model/modelnew_weights.h5'  ###
 
-#Load Model
-# json_file = open(MODEL_ARCHITECTURE)
-# loaded_model_json = json_file.read()
-# json_file.close()
-# loaded_model = model_from_json(loaded_model_json)
-# loaded_model.compile(loss='sparse_categorical_crossentropy', metrics=['accuracy'], optimizer='rmsprop')
+
 
 disease_classes = {0:'Atelectasis',1:'Cardiomegaly', 2 :'Consolidation', 3: 'Edema', 4: 'Effusion',  5: 'Emphysema', 6: 'Fibrosis', 7: 'Hernia', 8: 'Infiltration', 9: 'Mass', 10: 'No Finding', 11 : 'Nodule', 12: 'Pleural_Thickening',13: 'Pneumonia', 14: 'Pneumothorax'}
 
-# y_predicted = loaded_model.predict(X_Test_Flatten)
-# prediction = np.argmax(y_predicted[0])
 
-print("Model Loaded")
 
-# Get weights into the model
-#loaded_model.load_weights(MODEL_WEIGHTS)
-print("Weights Loaded")
-
-# Load Data Scaling
-# scalerLoaded = joblib.load(open('E:\Research\Deployment\CNN Flask Deployment\Model\scaler.pkl', 'rb'))
 scalerLoaded = joblib.load('./Model/sclaer1.mod')
-scalerLoaded.clip = False  #CHECK
+scalerLoaded.clip = False  
 print("Scaler Loaded", scalerLoaded.get_params())
 
-# @app.route('/favicon.ico')
-# def favicon():
-#     return send_from_directory(os.path.join(app.config["IMAGE_UPLOADS"], 'abc.jpg'),
-#                           'favicon.ico')
+
 @app.route('/',  methods=["GET", "POST"])
 def uploadFile():
     return render_template('index.html')
@@ -62,7 +39,6 @@ def prediction():
         print("prediction")
         xrayImage = request.files['xrayImage']
         if xrayImage:            
-            # xrayImage.save('predict.jpg')
             print("inside")
             filename = xrayImage.filename.split('.')
             print("file", xrayImage.filename)
@@ -74,32 +50,16 @@ def prediction():
             attributes = [[scaledAge[0][0], int(gender)]]
             print("attributes", attributes)
             attributesArr = np.asarray(attributes)
-            # source_dir = 'E:\\Research\\Deployment\\Old\\static\\186466753_394710685590769_7094925174955611211_n.png' 
-
-            # inputImages = []
-            imagePath = os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename) 
-            # print("imagePath", imagePath)
-            # image = cv2.imread(imagePath)
-            # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            # print("graybefore", gray.shape, image.shape)
-            # image = cv2.resize(gray, (128, 128))
-            # inputImages.append(image)            
-            # print("imageshape", image.shape, "gray", gray.shape)
-            # inputImages =  np.array(inputImages)
+           
+            imagePath = os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename)             
 
             inputImages = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
             inputImages = cv2.resize(inputImages, (128,128))
             inputImages = inputImages[np.newaxis,:,:,np.newaxis]
 
 
-            # img = image.load_img(imagePath, target_size=(128, 128),color_mode='grayscale')
-            # img = image.img_to_array(img)
-            # inputImages.append(img)
-            # inputImages = np.array(inputImages)
             inputImages = inputImages / 255.0
-            print("last", inputImages.shape)
-            # To delete file
-            # os.remove(os.path.join(app.config["IMAGE_UPLOADS"], xrayImage.filename))
+            print("last", inputImages.shape)        
 
             json_file = open(MODEL_ARCHITECTURE)
             loaded_model_json = json_file.read()
