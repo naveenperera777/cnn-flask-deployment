@@ -11,8 +11,8 @@ app  = Flask(__name__ , template_folder='ui');
 app.config["IMAGE_UPLOADS"] = "./static"
 
  
-MODEL_ARCHITECTURE = './Model/model.json'   ###
-MODEL_WEIGHTS = './Model/weights.h5'  ###
+MODEL_ARCHITECTURE = './Model/model.json'   
+MODEL_WEIGHTS = './Model/weights.h5'  
 
 
 
