@@ -120,13 +120,13 @@ def covidPrediction():
             disease_classes = {0: 'COVID', 1: 'Normal', 2: 'Viral_Pneumonia'}
             print("predictions", "selected", a , "value ==========> ", disease_classes[a])
             predictionProbability = round(preds[0][a] *100 , 2)
-        return render_template(
-            'prediction.html', 
-            prediction=disease_classes[a],
-            fileName=xrayImage.filename,
-            predictionProbability=predictionProbability,
-            probabilities=preds[0]
-        );
+    return render_template(
+        'prediction.html', 
+        prediction=disease_classes[a],
+        fileName=xrayImage.filename,
+        predictionProbability=predictionProbability,
+        probabilities=preds[0]
+    );
 
 
 if __name__ == "__main__":
