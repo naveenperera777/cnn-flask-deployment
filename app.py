@@ -11,8 +11,8 @@ app  = Flask(__name__ , template_folder='ui');
 app.config["IMAGE_UPLOADS"] = "./static"
 
  
-MODEL_ARCHITECTURE = './Model/md4.json'   ###
-MODEL_WEIGHTS = './Model/modelnew_weights.h5'  ###
+MODEL_ARCHITECTURE = './Model/model.json'   
+MODEL_WEIGHTS = './Model/weights.h5'  
 
 COVID_MODEL_ARCHITECTURE = './Model/covidmodel.json'   ### 
 COVID_WEIGHTS = './Model/covidweights.h5'
@@ -23,7 +23,7 @@ disease_classes = {0:'Atelectasis',1:'Cardiomegaly', 2 :'Consolidation', 3: 'Ede
 
 
 
-scalerLoaded = joblib.load('./Model/sclaer1.mod')
+scalerLoaded = joblib.load('./Model/sclaer.mod')
 scalerLoaded.clip = False  
 print("Scaler Loaded", scalerLoaded.get_params())
 
